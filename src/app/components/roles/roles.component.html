@@ -1,47 +1,17 @@
-<p>roles works!</p>
-
 <div class="row">
-    <div class="col-3">
-        <p> version</p>
+    <div class="col-4">
+        <ul>
+            <li *ngFor="let item of roleList">{{item.role}}</li>
+        </ul>
     </div>
-    <div class="col-3">
-        <p>{{firstName}}</p>    
-    </div>
-
-    <div class="col-3">
-        <p>{{selectedState}}</p>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-3">
-        <input type="text" [value]="firstName" class="form-control">
-    </div>
-    <div class="col-3">
-        <input type="text" [(ngModel)]="firstName"> <!-- 2 data biding -->
-    </div>
-    <div class="col-3">
-        <input [type]="inputType">
-    </div>
-
-    <div class="col-3">
-        <select [(ngModel)] = "selectedState">  <!--ngModel is on the input element not display elm-->
-            <option value="MH">MH</option>
-            <option value="MP">MP</option>
-            <option value="GOA">GOA</option>
+    
+    <div class="col-4">
+        <select>
+            <option *ngFor="let role of roleList" [value]="role.roleId">{{role.roleName}}</option>
         </select>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-3">
-        <button class="btn btn-success" (click)="showWelcomeAlert()">show alert</button>
-    </div>
-    <div class="col-3">
-        <button class="btn btn-success" (click)="showMessage('welcome reat')">show alert</button>
-    </div>
-    <div class="col-3">
-        <button class="btn btn-success" (click)="showWelcomeAlert()">show alert</button>
+    <div class="col-4 mx-2">
+        <button *ngFor="let item of roleList">{{item.role}}</button>
     </div>
 </div>
-

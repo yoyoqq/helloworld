@@ -1,28 +1,41 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-roles',
-  imports: [FormsModule], // FormusModule event binding 
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './roles.component.html',
-  styleUrl: './roles.component.css'
+  styleUrls: ['./roles.component.css']
 })
-export class RolesComponent {
-  firstName : string = "firstName";
-  name: string = "Angular tutorial";
-  angularVersion = "Version 18"
-  version: number = 12;   // strong value type 
-  isACtive : boolean = true;
+export class RolesComponent implements OnInit {
+  roleList: any[] = [];
+
+    // new way on doing it 
+    // http = inject(HttpClient);
+    // constructor(private http: HttpClient){
   
-  inputType: string = "radio"
-  selectedState: string = "";
+    // roleList: IRole [] = [];
+  
+  constructor(private http: HttpClient) {}
 
-
-  // create functions 
-  showWelcomeAlert(){
-    alert("welcome to angular tutorial");
+  ngOnInit(): void {
+    console.log('Component initialized');
+    this.getAllRoles();
   }
-  showMessage(message: string){
-    alert(message);
+
+  getAllRoles() {
+    const api_link = "https://freeapi.miniprojectideas.com/api/ClientStrive/GetAllRoles";
+    console.log('Fetching roles...');
+    this.http.get(api_link).subscribe({
+      next: (response: any) => {
+        console.log('API Response:', response);
+        this.roleList = response.data;
+      },
+      error: (error) => {
+        console.error('Error fetching roles:', error);
+      }
+    });
   }
 }
